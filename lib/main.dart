@@ -1,38 +1,19 @@
-// import 'package:flutter/material.dart';
-
-// import 'screen/home/homescreen.dart';
-// import 'package:interntask/resources/theme/Themes.dart';
-
-// void main() {
-//   runApp(const MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-  
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter Demo',
-     
-//       theme: lightTheme,
-//       debugShowCheckedModeBanner: false,
-//       home:  HomeScreen(),
-//     );
-//   }
-// }
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:interntask/block/evse_block.dart';
 
-import 'block/evse_block.dart';
-import 'resources/theme/Themes.dart';
-import 'screen/home/homescreen.dart';
-import 'services/api_service.dart';
+import 'package:interntask/firebase_options.dart';
+import 'package:interntask/resources/theme/themes.dart';
+import 'package:interntask/screen/home/homescreen.dart';
+import 'package:interntask/screen/authentication/signin.dart';
+import 'package:interntask/services/api_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
@@ -41,16 +22,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter EVSE App',
-
-      theme: lightTheme,
-      debugShowCheckedModeBanner: false,
-      home: BlocProvider(
-        create: (_) => EVSEBloc(apiService: apiService),
-        child: HomePage(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<EVSEBloc>(
+          create: (_) => EVSEBloc(apiService: apiService),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Flutter EVSE App',
+        theme: lightTheme,
+        debugShowCheckedModeBanner: false,
+        home:
+            SigninScreen(), // Assuming you navigate to HomeScreen after Signin
       ),
     );
   }
 }
-

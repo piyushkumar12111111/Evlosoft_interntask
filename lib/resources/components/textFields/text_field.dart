@@ -59,7 +59,7 @@ class CustomTextField extends StatelessWidget {
     return Material(
       color: isLightMode
           ? AppColor.buttonColorLight
-          : AppColor.buttonColorDark,
+          : AppColor.buttonColorLight,
       borderRadius: BorderRadius.circular(15),
       child: TextFormField(
         focusNode: node,
