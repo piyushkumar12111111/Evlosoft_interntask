@@ -75,7 +75,9 @@ class _ListItemWidgetState extends State<ListItemWidget> {
                    SizedBox(width: 10),
                     Container(
                       decoration: BoxDecoration(
-                        color: widget.status == "AVAILABLE" ? Colors.green : Colors.orange,
+                        color: widget.status == "AVAILABLE"
+                            ? Colors.green
+                            : const Color.fromARGB(255, 253, 232, 46),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Padding(

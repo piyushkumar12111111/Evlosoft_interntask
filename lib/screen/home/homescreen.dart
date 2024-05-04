@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../block/evse_block.dart';
 import '../../block/evse_event.dart';
 import '../../block/evse_state.dart';
+import '../details/detailscreen.dart';
 import 'widgets/itemswidget.dart';
 import 'widgets/searchbox.dart';
 
@@ -48,11 +49,27 @@ class HomePage extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: state.evses.length,
                       itemBuilder: (context, index) {
-                        return ListItemWidget(
-                          thumbnail: state.evses[index].thumbnail,
-                          evname: state.evses[index].evseName,
-                          status: state.evses[index].status,
-                          maxVoltage: state.evses[index].maxVoltage,
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailScreen(
+                                      name: state.evses[index].evseName,
+                                      imageurl: state.evses[index].thumbnail,
+                                      evseid: state.evses[index].evseid,
+                                      latitude: state.evses[index].latitude,
+                                      longitude: state.evses[index].longitude,
+                                      maxpower: state.evses[index].maxVoltage,
+                                      status: state.evses[index].status)),
+                            );
+                          },
+                          child: ListItemWidget(
+                            thumbnail: state.evses[index].thumbnail,
+                            evname: state.evses[index].evseName,
+                            status: state.evses[index].status,
+                            maxVoltage: state.evses[index].maxVoltage,
+                          ),
                         );
                         // return ListTile(
                         //   title: Text(state.evses[index].evseName),

@@ -4,7 +4,6 @@
 //   final String evseName;
 //   final double latitude;
 //   final double longitude;
-  
 
 //   EVSE({
 //     required this.id,
@@ -37,7 +36,6 @@
 //   }
 // }
 
-
 class EVSE {
   final String id;
   final String status;
@@ -46,8 +44,9 @@ class EVSE {
   final double longitude;
   final String thumbnail;
   final int maxVoltage;
+  final String evseid;
 
-  EVSE({
+  EVSE( {
     required this.id,
     required this.status,
     required this.evseName,
@@ -55,11 +54,14 @@ class EVSE {
     required this.longitude,
     required this.thumbnail,
     required this.maxVoltage,
+    required this.evseid,
   });
 
   factory EVSE.fromJson(Map<String, dynamic> json) {
     var connectors = json['connectors'] as List<dynamic>;
-    String thumbnailUrl = connectors.isNotEmpty && connectors[0]['images'] != null && connectors[0]['images'].isNotEmpty
+    String thumbnailUrl = connectors.isNotEmpty &&
+            connectors[0]['images'] != null &&
+            connectors[0]['images'].isNotEmpty
         ? connectors[0]['images'][0]['thumbnail']
         : 'https://via.placeholder.com/150';
 
@@ -72,7 +74,9 @@ class EVSE {
       thumbnail: json['images'].isNotEmpty
           ? json['images'][0]['thumbnail'] as String
           : 'https://via.placeholder.com/150',
-      maxVoltage: connectors.isNotEmpty ? connectors[0]['max_voltage'] as int : 0,
+      maxVoltage:
+          connectors.isNotEmpty ? connectors[0]['max_voltage'] as int : 0,
+      evseid: json['evse_group_id'] as String,
     );
   }
 
