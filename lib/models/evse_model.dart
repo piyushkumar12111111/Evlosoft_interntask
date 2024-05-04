@@ -69,7 +69,9 @@ class EVSE {
       evseName: json['evse_name'] as String,
       latitude: _toDouble(json['coordinates']['latitude']),
       longitude: _toDouble(json['coordinates']['longitude']),
-      thumbnail: thumbnailUrl,
+      thumbnail: json['images'].isNotEmpty
+          ? json['images'][0]['thumbnail'] as String
+          : 'https://via.placeholder.com/150',
       maxVoltage: connectors.isNotEmpty ? connectors[0]['max_voltage'] as int : 0,
     );
   }
