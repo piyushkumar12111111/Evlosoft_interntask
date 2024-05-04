@@ -30,6 +30,7 @@ class TextFields2 extends StatelessWidget {
     return Padding(
       padding: padding ?? const EdgeInsets.all(8),
       child: TextFormField(
+        
         readOnly: readOnly ?? false,
         controller: controller,
         focusNode: node,
@@ -38,7 +39,7 @@ class TextFields2 extends StatelessWidget {
           if (validator != null) {
             return validator!(value);
           }
-          return null;
+          return _validatePhoneNumber(value);
         },
         style: AppTextStyle.rMedium.copyWith(
             fontSize: 14,
@@ -59,9 +60,7 @@ class TextFields2 extends StatelessWidget {
               const EdgeInsets.only(top: 6, bottom: 6, left: 10, right: 10),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                  color: isLightTheme(context)
-                      ? AppColor.darkGrey
-                      : AppColor.lightWhiteColor,
+                  color: Colors.black,
                   width: 0.0),
               borderRadius: BorderRadius.circular(12)),
           enabledBorder: OutlineInputBorder(
@@ -87,5 +86,19 @@ class TextFields2 extends StatelessWidget {
         ),
       ),
     );
+  }
+
+
+  String? _validatePhoneNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Phone number cannot be empty';
+    }
+   
+    var pattern = r'^\+?[1-9]\d{1,14}$';
+    RegExp regex = RegExp(pattern);
+    if (!regex.hasMatch(value)) {
+      return 'Enter a valid phone number';
+    }
+    return null;
   }
 }

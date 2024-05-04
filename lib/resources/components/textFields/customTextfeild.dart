@@ -37,20 +37,20 @@ class _CustomTextStatusState extends State<CustomTextStatus> {
         controller: widget.controller,
         keyboardType: widget.keyboardType ?? TextInputType.text,
         textInputAction: widget.textInputAction ?? TextInputAction.done,
-        textAlign: TextAlign.start, // Changed to start to match the image
+        textAlign: TextAlign.start, 
         obscureText: widget.isPassword && !_isPasswordVisible,
         decoration: InputDecoration(
           hintText: widget.hintText,
           filled: true, // new line
           fillColor: Colors.grey
-              .shade200, // new line, change this to match the exact color you need
+              .shade200, 
           contentPadding: EdgeInsets.symmetric(
-              vertical: 18.0, horizontal: 16.0), // Adjusted the padding
+              vertical: 18.0, horizontal: 16.0),
           border: OutlineInputBorder(
-            // Changed to an outline border
-            borderSide: BorderSide.none, // Set border to none
+         
+            borderSide: BorderSide.none, 
             borderRadius: BorderRadius.circular(
-                10.0), // Adjust the border radius to match the image
+                10.0), 
           ),
           suffixIcon: widget.isPassword
               ? IconButton(

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "209200314735",
+    "project_id": "interntask-1192a",
+    "storage_bucket": "interntask-1192a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209200314735:android:f5a525fe70ec13b520909a",
+        "android_client_info": {
+          "package_name": "com.example.interntask"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBavfOMXelYZd_-SypFweOp2PEwhPvnmRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
