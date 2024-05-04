@@ -158,10 +158,12 @@ class _DetailScreenState extends State<DetailScreen> {
               children: [
                 Icon(Icons.location_on),
                 SizedBox(width: 10),
-                Text(
-                  _address,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 12),
+                Flexible(
+                  child: Text(
+                    _address,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 12),
+                  ),
                 ),
               ],
             ),
