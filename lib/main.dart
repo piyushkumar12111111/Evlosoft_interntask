@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         theme: lightTheme,
         debugShowCheckedModeBanner: false,
         home:
-            SigninScreen(), // Assuming you navigate to HomeScreen after Signin
+            SigninScreen(), 
       ),
     );
   }
