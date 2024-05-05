@@ -1,16 +1,24 @@
-# interntask
+# Evlosoft
 
-A new Flutter project.
+This is my intern task.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Google Authentication
+- Dynamic List of Charging Station List
+- Details about the chargin Station
 
-A few resources to get you started if this is your first Flutter project:
+## Prerequisites
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Before you begin, ensure you have met the following requirements:
+- Flutter ( 3.16.5)
+- Dart (3.2.3)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Installation
+
+To install the necessary dependencies for this project, run the following command:
+
+cd project_name
+flutter pub get
+flutter run 
