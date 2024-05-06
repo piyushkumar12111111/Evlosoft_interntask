@@ -3,9 +3,13 @@ import 'package:flutter/services.dart';
 
 class OTPTextField extends StatefulWidget {
   final int length;
+  final Function(String) onCompleted;
 
-  // Change the default length to 5
-  const OTPTextField({Key? key, this.length = 5}) : super(key: key);
+  const OTPTextField({
+    Key? key,
+    this.length = 6,
+    required this.onCompleted,
+  }) : super(key: key);
 
   @override
   _OTPTextFieldState createState() => _OTPTextFieldState();
@@ -18,8 +22,7 @@ class _OTPTextFieldState extends State<OTPTextField> {
   @override
   void initState() {
     super.initState();
-    _controllers =
-        List.generate(widget.length, (index) => TextEditingController());
+    _controllers = List.generate(widget.length, (index) => TextEditingController());
     _focusNodes = List.generate(widget.length, (index) => FocusNode());
   }
 
@@ -37,6 +40,12 @@ class _OTPTextFieldState extends State<OTPTextField> {
     if (value.isEmpty && index > 0) {
       _focusNodes[index - 1].requestFocus();
     }
+
+    // Check if all fields are filled
+    if (index == widget.length - 1 && value.length == 1) {
+      String fullOTP = _controllers.map((e) => e.text).join();
+      widget.onCompleted(fullOTP);
+    }
   }
 
   @override
@@ -46,7 +55,7 @@ class _OTPTextFieldState extends State<OTPTextField> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: List.generate(widget.length, (index) {
           return SizedBox(
-            width: 50,
+            width: 40,
             child: TextFormField(
               controller: _controllers[index],
               focusNode: _focusNodes[index],

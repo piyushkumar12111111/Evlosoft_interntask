@@ -4,6 +4,9 @@ import '../../resources/components/textFields/text_field.dart';
 import '../../resources/components/textFields/text_fields_2.dart';
 import 'controller/authcontroller.dart';
 import 'otpscreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
@@ -15,7 +18,36 @@ class SigninScreen extends StatefulWidget {
 class _SigninScreenState extends State<SigninScreen> {
   @override
   AuthService _authService = AuthService();
-  TextEditingController phonecontroller = TextEditingController();
+ 
+
+final TextEditingController _phoneNumberController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String _verificationId = "";
+
+  void _verifyPhoneNumber() async {
+    await _auth.verifyPhoneNumber(
+      phoneNumber: _phoneNumberController.text,
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await _auth.signInWithCredential(credential);
+        Fluttertoast.showToast(
+            msg:
+                "Phone number automatically verified and user signed in: ${_auth.currentUser?.uid}");
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        Fluttertoast.showToast(
+            msg: "Failed to verify phone number: ${e.message}");
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        Fluttertoast.showToast(
+            msg: "Verification code sent to the phone number");
+        _verificationId = verificationId;
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {
+        _verificationId = verificationId;
+      },
+    );
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -46,7 +78,7 @@ class _SigninScreenState extends State<SigninScreen> {
               height: 10,
             ),
             TextFields2(
-              controller: phonecontroller,
+              controller: _phoneNumberController,
               hintText: "Phone Number",
             ),
             SizedBox(
@@ -59,11 +91,15 @@ class _SigninScreenState extends State<SigninScreen> {
                 onPrimary: Colors.white,
               ),
               onPressed: () {
+                _verifyPhoneNumber();
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          OtpScreen(phonenumber: phonecontroller.text)),
+                          OtpScreen(
+                            phonenumber: _phoneNumberController.text,
+                            verificationId: _verificationId,
+                          )),
                 );
               },
               child: Text(
